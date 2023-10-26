@@ -1,0 +1,10 @@
+@import './base.css';
+
+#app {
+  max-width: 2500px;
+  margin: 0 auto;
+  height: 100vh;
+
+  font-weight: normal;
+}
+
