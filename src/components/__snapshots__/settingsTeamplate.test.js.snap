@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit tests > snaphot teamplate on renders successfully 1`] = `
+"<div data-v-f72ed292=\\"\\" class=\\"settings-template\\"><button data-v-f72ed292=\\"\\" class=\\"settings-template__btn\\">Test Button</button>
+  <div data-v-f72ed292=\\"\\" class=\\"settings-template__body\\">
+    <div>Test body el</div>
+  </div>
+</div>"
+`;
