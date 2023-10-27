@@ -1,3 +1,4 @@
+/** Class сохраняет логи о крушениях поездов на различных итерациях  */
 export default class InfoLog {
     events = {};
 
@@ -20,7 +21,6 @@ export default class InfoLog {
                 return;
             }
 
-            console.log('currKey', currKey, key);
             this.events[currKey].logs.push(logs);
             this.events[currKey].trainNames = this.events[currKey].trainNames.concat(trainNames);
         });
@@ -35,9 +35,18 @@ export default class InfoLog {
         return this.events[keyEvent] ?? this.events[revKey];
     }
 
+    /**
+     * получаем массив логов.
+     * @return {Array}
+     */
     get getEvents() {
         let arrEvents = [];
         Object.values(this.events).forEach((el) => { arrEvents = arrEvents.concat(el.logs) })
         return arrEvents;
+    }
+
+    /** после расчетов очишаем обьект*/
+    clear() {
+        this.events = {};
     }
 }

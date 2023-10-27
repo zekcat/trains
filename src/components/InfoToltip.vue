@@ -9,7 +9,7 @@
  * @description Компонент выводит информационное сообщение для пользователя
  * при успешном выполнении действия возможной ошибке и тд
  */
-import { defineProps, onMounted } from "vue";
+import { onMounted } from "vue";
 
 const props = defineProps({
   title: {
@@ -36,13 +36,18 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  word-wrap: break-all;
 
-  width: 30vw;
-  min-height: 5vh;
+  overflow: hidden;
+
+  width: 40vw;
+  min-height: 10vh;
   font-size: 3em;
   line-height: 100%;
 
   background: #f9f9fb;
+  color: red;
   box-shadow: 4px 12px 51px 14px rgba(34, 60, 80, 0.64);
   border-radius: 20px;
 }

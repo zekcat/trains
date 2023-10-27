@@ -1,5 +1,4 @@
 import { Train } from '@/controller/Train';
-import { roadmaps } from "@/controller/station";
 
 /**
  * @function createTrans
@@ -7,7 +6,7 @@ import { roadmaps } from "@/controller/station";
  * @param {Number} numberOfTrains - количество поездов
  * @returns {Array} - массив с поездами
  */
-export const createTrains = (numberOfTrains) => {
+export const createTrains = (numberOfTrains, roadMaps) => {
     const trainsNumParse = Number.parseInt(numberOfTrains, 10);
 
     if (isNaN(trainsNumParse)) return;
@@ -18,13 +17,12 @@ export const createTrains = (numberOfTrains) => {
         const trainParams = {
             model: "train-m001",
             name: `name-${num + 1}`,
-            roadMap: roadmaps[num + 1],
+            roadMap: roadMaps[num],
             log: [],
             isWork: true,
         }
 
         trains.push(new Train(trainParams));
     }
-    console.log("createTrains", trains);
     return trains
 };

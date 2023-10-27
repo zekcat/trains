@@ -3,7 +3,7 @@ import { findStationPath } from "@/controller/station";
 import InfoLog from "@/controller/InfoLog";
 
 
-export const infoLog = new InfoLog();
+const infoLog = new InfoLog();
 
 /**
  * @private
@@ -108,22 +108,41 @@ const _initRoads = (trains) => {
     return { maxLength, states };
 }
 
-
+/**
+ * @private
+ * @function _setCrushTrain
+ * @description устанавливаем для массива с итерациями для поезда момент аварии
+ * удаляем поезд из числа работающих, чтобы затем не прорять что с ним происходит 
+ */
 const _setCrushTrain = ({ states, idValue, trainsWork, name }) => {
     states[name] = [idValue];
     delete trainsWork[name];
 };
 
+/**
+ * @private
+ * @function _createTicket
+ * @description возвращаем шаблон тикета
+ * @returns {Object}
+ */
 const _createTicket = () => {
     return { trainNames: [], iteration: -1, logs: '' };
 };
 
+/**
+ * @private
+ * @function _initTicket
+ * @description Инициализация тикета
+ * формирвоание логов в зависимости от произошедшей ситуации
+ * @param {*} param0 
+ * @returns 
+ */
 const _initTicket = ({ tiket, place, value, msgByPrevEvent, index, logMsg, states, trainsWork, name }) => {
     const reverseValue = value.split(":").reverse().join(":");
 
     switch (true) {
         case !!(tiket[reverseValue] === undefined && msgByPrevEvent):
-            console.log("inside");
+
             tiket[reverseValue] = _createTicket();
             tiket[reverseValue].iteration = index;
 
@@ -159,8 +178,8 @@ const _initTicket = ({ tiket, place, value, msgByPrevEvent, index, logMsg, state
 /**
  * @private
  * @function _testIterationEvent
- * @description 
- * @param {*} param0 
+ * @description проверям местонахождения каждого поезда в итерацию
+ * @param {Object} param
  */
 const _testIterationEvent = ({ states, trainNames, index, trainsWork }) => {
     const tiket = {};
@@ -176,7 +195,6 @@ const _testIterationEvent = ({ states, trainNames, index, trainsWork }) => {
 
         // проверяем наличие уже случившегося события, создаем строку для добавления информации
         const prevEvent = infoLog.checkOnEvent(value);
-        console.log("prevEvent", prevEvent);
         const msgByPrevEvent = prevEvent === undefined ? "" : `с поездами ${prevEvent.trainNames.join(", ")} находящимися в аварии`;
 
         _initTicket({ tiket, place, value, msgByPrevEvent, index, logMsg, states, trainsWork, name })
@@ -204,4 +222,9 @@ export const controller = (trains) => {
 
         _testIterationEvent({ states, trainNames, index, trainsWork });
     }
+
+    const events = infoLog.getEvents;
+    infoLog.clear();
+
+    return events;
 };

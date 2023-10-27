@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
-import { InfoToltip } from "@/components/shared";
+import { InfoToltip } from "@/components";
 
 describe("unit tests", () => {
   const initComponent = () => {
